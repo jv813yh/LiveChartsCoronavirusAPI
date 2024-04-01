@@ -3,7 +3,7 @@
     public class ApiCorovaVirusCountry
     {
         public string Country { get; set; } = string.Empty;
-        public int Cases { get; set; }
         public ApiCountryInfo CountryInfo { get; set; }
+        public int Cases { get; set; }
     }
 }
