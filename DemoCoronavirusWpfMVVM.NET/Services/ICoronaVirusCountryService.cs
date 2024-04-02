@@ -4,6 +4,6 @@ namespace DemoCoronavirusWpfMVVM.NET.Services
 {
     public interface ICoronaVirusCountryService
     {
-        Task<IEnumerable<CoronaVirusCountry>> GetTopCountries(int count);
+        Task<IEnumerable<CoronaVirusCountry>> GetTopCountries(int amountOfCountries);
     }
 }

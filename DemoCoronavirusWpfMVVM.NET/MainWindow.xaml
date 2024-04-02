@@ -4,14 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DemoCoronavirusWpfMVVM.NET"
+        xmlns:views="clr-namespace:DemoCoronavirusWpfMVVM.NET.Views"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        
+        Title="Corona Virus Cases" 
+        Icon="/Images/Covid19.png"
         Height="450" 
         Width="800">
     
     <Grid>
 
-    
+        <views:CoronaVirusCountiresChartView 
+               Margin="15"
+               DataContext="{Binding CoronaVirusCountiresChartViewModel}"/>
+
     </Grid>
     
 </Window>

@@ -12,47 +12,62 @@ namespace DemoCoronavirusWpfMVVM.NET.Services.API
         // Uses HttpClient to make a GET request to the disease.sh API
         public async Task<IEnumerable<CoronaVirusCountry>> GetTopCountries(int amountOfCountries)
         {
-            // Create a new HttpClient object
-            using (HttpClient client = new HttpClient())
+            try
             {
-                // Set the request URL
-                string requestUrl = "https://disease.sh/v3/covid-19/countries?sort=cases";
-
-                // Make a GET request to the API
-                HttpResponseMessage apiResponseMessage = await client.GetAsync(requestUrl);
-
-                // Check if the request was successful
-                if(!apiResponseMessage.IsSuccessStatusCode)
+                // Create a new HttpClient object
+                using (HttpClient client = new HttpClient())
                 {
-                    throw new HttpRequestException("Error getting countries data");
-                }
-                else
-                {
-                    // Read the response content as a string
-                    string jsonResponse = await apiResponseMessage.Content.ReadAsStringAsync();
+                    // Set the request URL
+                    string requestUrl = "https://disease.sh/v3/covid-19/countries?sort=cases";
 
-                    // Deserialize the JSON response into an List of ApiCorovaVirusCountry objects
-                    List<ApiCorovaVirusCountry>? apiCoronaCountriesList = JsonSerializer
-                        .Deserialize<List<ApiCorovaVirusCountry>>(jsonResponse, new JsonSerializerOptions()
-                        {
-                            PropertyNameCaseInsensitive = true
-                        });
+                    // Make a GET request to the API
+                    HttpResponseMessage apiResponseMessage = await client.GetAsync(requestUrl);
 
-                    if (apiCoronaCountriesList == null)
+                    // Check if the request was successful
+                    if (!apiResponseMessage.IsSuccessStatusCode)
                     {
-                        throw new JsonException("Error deserializing countries data");
+                        throw new HttpRequestException("Error getting countries data");
                     }
+                    else
+                    {
+                        // Read the response content as a string
+                        string jsonResponse = await apiResponseMessage.Content.ReadAsStringAsync();
 
-                    // Return the top countries with the most cases
-                    return apiCoronaCountriesList
-                        .Take(amountOfCountries)
-                        .Select(c => new CoronaVirusCountry
+                        // Deserialize the JSON response into an List of ApiCorovaVirusCountry objects
+                        List<ApiCorovaVirusCountry>? apiCoronaCountriesList = JsonSerializer
+                            .Deserialize<List<ApiCorovaVirusCountry>>(jsonResponse, new JsonSerializerOptions()
+                            {
+                                PropertyNameCaseInsensitive = true
+                            });
+
+                        if (apiCoronaCountriesList == null)
                         {
-                            Country = c.Country,
-                            CaseCount = c.Cases,
-                            FlagUri = c.CountryInfo.Flag,
-                        });
+                            throw new JsonException("Error deserializing countries data");
+                        }
+
+                        // Return the top countries with the most cases in model form (CoronaVirusCountry)
+                        return apiCoronaCountriesList
+                            .Take(amountOfCountries)
+                            .Select(c => new CoronaVirusCountry
+                            {
+                                Country = c.Country,
+                                CaseCount = c.Cases,
+                                FlagUri = c.CountryInfo.Flag,
+                            });
+                    }
                 }
+            }
+            catch(HttpRequestException e)
+            { 
+                throw new HttpRequestException($"Error executing HTTP request: {e.Message}");
+            }
+            catch (JsonException e)
+            {
+                throw new JsonException($"Error deserializing countries data: {e.Message}");
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"An error occurred: {e.Message}");
             }
         }
     }

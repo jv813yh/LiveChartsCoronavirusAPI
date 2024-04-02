@@ -12,21 +12,19 @@ namespace DemoCoronavirusWpfMVVM.NET
     public partial class App : Application
     {
 
-        protected override async void OnStartup(StartupEventArgs e)
+        // Override the OnStartup method 
+        // This method is called when the application starts ...
+        protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             MainWindow = new MainWindow()
             {
+                // Set the DataContext of the MainWindow to a new instance of MainViewModel
                 DataContext = new MainViewModel()
             };
-
-            ApiCoronaVirusCountryService service = new ApiCoronaVirusCountryService();
-
-            var result = await service.GetTopCountries(10);
 
             MainWindow.Show();
         }
     }
-
 }
