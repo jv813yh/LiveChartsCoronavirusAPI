@@ -52,7 +52,6 @@ namespace DemoCoronavirusWpfMVVM.NET.Services.API
                             {
                                 Country = c.Country,
                                 CaseCount = c.Cases,
-                                FlagUri = c.CountryInfo.Flag,
                             });
                     }
                 }

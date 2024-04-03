@@ -15,31 +15,33 @@
             This part define the look and content of the histogram 
             graph in the application
         -->
-        
-        <lvc:CartesianChart>
-            
+        <lvc:CartesianChart Foreground="#322944">
             <lvc:CartesianChart.Series>
                 <lvc:ColumnSeries Title="Country Cases" 
-                                  Values="{Binding CoronaVirusCountriesCaseCounts}"/>
+                          Values="{Binding CoronaVirusCountriesCaseCounts}" 
+                          Foreground="#000103"/>
             </lvc:CartesianChart.Series>
 
             <lvc:CartesianChart.AxisX>
                 <lvc:Axis Title="Countries" 
-                          Labels="{Binding CoronaVirusCountriesNames}">
-
-                    <!-- Showing step by step -->
-                <lvc:Axis.Separator>
-                    <lvc:Separator Step="1"/>
-                </lvc:Axis.Separator>
+                  Margin="10"
+                  FontSize="15"
+                  Labels="{Binding CoronaVirusCountriesNames}"
+                  Foreground="#000103">
+                    <lvc:Axis.Separator>
+                        <lvc:Separator Step="1"/>
+                    </lvc:Axis.Separator>
                 </lvc:Axis>
-            
             </lvc:CartesianChart.AxisX>
 
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Cases"/>
+                <lvc:Axis Title="Cases"
+                  Margin="10"
+                  FontSize="15"
+                  Foreground="#000103"/>
             </lvc:CartesianChart.AxisY>
-            
         </lvc:CartesianChart>
-            
+
+
     </Grid>
 </UserControl>

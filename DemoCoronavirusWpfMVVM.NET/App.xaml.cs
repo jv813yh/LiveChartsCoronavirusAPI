@@ -1,7 +1,4 @@
-﻿using DemoCoronavirusWpfMVVM.NET.Services.API;
-using DemoCoronavirusWpfMVVM.NET.ViewModels;
-using System.Configuration;
-using System.Data;
+﻿using DemoCoronavirusWpfMVVM.NET.ViewModels;
 using System.Windows;
 
 namespace DemoCoronavirusWpfMVVM.NET
